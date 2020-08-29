@@ -1,0 +1,46 @@
+error : Invariant Violation: Text strings must be rendered within a <Text> component 
+cause by whit space in the code 
+
+using the authe provider : 
+    signupScreen : change our auth state    intiate a state chnage when use input its pass & email
+        send signle to the provider and sya sign up with api with {email,pass};
+    
+    sign in : change our auth state    intiate a state chnage when use input its pass & email
+        send signle to the provider and sya sign in with api with {email,pass};
+
+    Home : change our auth state    intiate a state chnage  : log out (without data )
+
+    1) creating the actions in thee auth context 
+
+axios : libary that send http requests <=> http 
+    sending http requests to the freaking api
+    creat file src/api/backend.js   
+
+    rq : for future learn ngrok (like thor ragnork) its free and give y 8 hours free use 
+    npm install -g ngrok
+
+
+error 2 : Unhandled promise rejection: Error: Request failed with status code (console.log(response.body)) = undfeined 
+mochkla in {} fi blast []
+
+
+
+handiling errors :
+    when meeting erro his going to dispatch a new action 
+    dispatch (error 7Aseb error code jey mil backend)
+    creeat new action tyape : error msg 
+    override the state eroor msg with the new action pyload 
+     {state.errorMessage ?(
+             <Text>{state.errorMessage }</Text>   
+      ):null}  showing error to screen 
+
+Async storage :
+    we want to store the json webtoken on the device 
+    token :text 
+    why : any time user restart our app the states dispear that s why we need to store token on the device => this will cuse the user to relog every time
+    it restart the app 
+
+    storage : asyncStorage module .
+    asyn storage is deprectaed :/ 
+
+
