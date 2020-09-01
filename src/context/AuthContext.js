@@ -16,10 +16,32 @@ const authReducer =(state,action)=>{
             return({...state,token:action.payload});
         case 'sigin_error':
             return({...state,errorMessage:action.payload});
+        case 'logout':
+            return({token:null});
+        case 'getMe':
+            //console.log("look here");
+            //console.log(action.payload);
+            return({...state,userMe:action.payload});
         default:
             return(state);
     };
 };
+
+const localSigin = (dispatch)=>{
+    return (
+        async () =>{
+            const token = await AsyncStorage.getItem('token');
+            if (token) {
+                dispatch ({type:'signin',payload:token})
+                //navigate to main flow 
+                navigate('home');
+            } else {
+                //navigate to login flow 
+                navigate('loginFlow');
+            }
+        }
+    );
+}
 
 const signup = (dispatch)=>{
 
@@ -28,7 +50,7 @@ const signup = (dispatch)=>{
        
         try {
             // api/register requesst 
-            const response =await backend.post('/api/v1/auth/register',{name,email,password});
+            const response =await backend.post ('/api/v1/auth/register',{name,email,password});
             console.log("succ");
             console.log(response.data); 
 
@@ -81,21 +103,51 @@ const signin = (dispatch)=>{
     );
 }
 
+
 const logout = (dispatch)=>{
 
     return(
-        ({email,password})=>{
+        async () => {
             // api/logOut requesst 
-
+            await AsyncStorage.removeItem('token');
+            dispatch({type:'logout'})
             //update state authenticate 
+            //navigate to login flow 
+            navigate('loginFlow');
+            //fail return error msg 
+        }
+    );
+}
+
+const getMe = (dispatch)=>{
+
+    return(
+        async ()=>{
+            try {
+                //get token from storage
+                const token = await AsyncStorage.getItem('token');
+                // api/logIn requesst 
+                const response =await backend.get('/api/v1/auth/me',{
+                    headers: {'Content-Type': 'application/json','Authorization':`Bearer ${token}`}
+                });
+                console.log("succ");
+                console.log(response.data.data); 
+
+                //update state authenticate 
+               dispatch({type:"getMe",payload:response.data.data});
+
+            
+            } catch (error) {
 
             //fail return error msg 
+            console.log(error.response);
+            }
         }
     );
 }
 
 export const {Context,Provider} = createDataContext(
     authReducer,
-    {signin,signup,logout},
-    {token:null,errorMessage:''}
+    {signin,signup,logout,localSigin,getMe},
+    {token:null,errorMessage:'',userMe:null}
 );
