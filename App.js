@@ -8,6 +8,8 @@ import AccountScreen from './src/screens/AccountScreen';
 import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
+import Login from './src/screens/Login';
+import SignUp from './src/screens/SignUp';
 import {Provider as AuthProvider } from './src/context/AuthContext';
 import {Provider as DataProvider } from './src/context/DataContext';
 
@@ -21,8 +23,8 @@ const switchNavigator=createSwitchNavigator ({
   loading:loadingScreen,
   loginFlow:createStackNavigator({
     //home:HomeScreen,
-    Signin:SigninScreen,
-    Signup:SignupScreen,
+    Signin:Login,
+    Signup:SignUp,
     
   }),
   mainFlow:createBottomTabNavigator({
