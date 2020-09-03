@@ -5,8 +5,8 @@ import {createBottomTabNavigator} from 'react-navigation-tabs'
 
 import HomeScreen from "./src/screens/HomeScreen";
 import AccountScreen from './src/screens/AccountScreen';
-import SigninScreen from './src/screens/SigninScreen';
-import SignupScreen from './src/screens/SignupScreen';
+import NewHome from './src/screens/NewHome';
+
 
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
@@ -28,7 +28,7 @@ const switchNavigator=createSwitchNavigator ({
     
   }),
   mainFlow:createBottomTabNavigator({
-     home:HomeScreen,
+     home:NewHome,
      Account:AccountScreen,
   })
 

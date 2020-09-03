@@ -1,5 +1,5 @@
 import axios from 'axios';
 //creating & exporting instrense 
 export default axios.create({
-    baseURL:'http://b84bc461e628.ngrok.io', // <=> localhost:5000
+    baseURL:'http://7b673d31d6fb.ngrok.io', // <=> localhost:5000
 });
