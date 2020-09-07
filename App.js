@@ -3,9 +3,10 @@ import { createAppContainer ,createSwitchNavigator} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 
-import HomeScreen from "./src/screens/HomeScreen";
-import AccountScreen from './src/screens/AccountScreen';
+
 import NewHome from './src/screens/NewHome';
+import newAcountScreen from './src/screens/newAcountScreen';
+import editAccountScreen from './src/screens/editAccountScreen';
 
 
 import Login from './src/screens/Login';
@@ -29,7 +30,11 @@ const switchNavigator=createSwitchNavigator ({
   }),
   mainFlow:createBottomTabNavigator({
      home:NewHome,
-     Account:AccountScreen,
+     //Account:newAcountScreen,
+     AccountStuff:createStackNavigator({
+       Account:newAcountScreen,
+       EditAccount:editAccountScreen,
+     }),
   })
 
 });

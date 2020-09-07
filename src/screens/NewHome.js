@@ -18,6 +18,8 @@ import {AntDesign} from '@expo/vector-icons'
 
 //context
 import {Context as DataContext} from '../context/DataContext';
+import {Context as AuthContext} from '../context/AuthContext';
+
 import Spacer from '../components/Spacer'
 import {Divider} from "react-native-elements";
 //import {FlatList} from "react-native-gesture-handler";
@@ -31,13 +33,16 @@ const { width, height } = Dimensions.get("screen");
 const NewHome =()=>{
 
   const {state,getlistOfWantedPepoles}=useContext(DataContext);
+  const {getMe}=useContext(AuthContext);
+
   // running the function
   useEffect(()=>{
     getlistOfWantedPepoles('wanted');
+    getMe();
+    
   },[]);
   
-  console.log("sakka :list of wanted");
-  console.log(state.listOfWanted.data);
+
    
     return (
       <Container>
@@ -67,10 +72,12 @@ const NewHome =()=>{
                 
                 return(
                   <Elmente key={elment}>
-                    <ElmentImage  source={{uri:`http://7b673d31d6fb.ngrok.io/${elment.item.photo}`}}/>
+                    <ElmentImage  source={{uri:`http://9cddaa11fe66.ngrok.io/${elment.item.photo}`}}/>
                     <ElmentInfo>
                        <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>{elment.item.name} </Text>
-                       <Text style={{color:"#000",marginLeft:10,}}>{elment.item.info} </Text>
+                       <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold'}}>{elment.item.state} </Text>
+                       <Text style={{color:"#000",marginLeft:10,}}>{elment.item.address} </Text>
+                       
                     </ElmentInfo>
                   </Elmente>
                );

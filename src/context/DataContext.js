@@ -113,8 +113,8 @@ const getlistOfWantedPepoles = (dispatch)=>{
                 const response =await backend.get(`/api/v1/persons?state=${satuts}`,{
                     headers: {'Content-Type': 'application/jsonvalue','Authorization':`Bearer ${token}`}
                 });
-                console.log("succ");
-                console.log(response.data); 
+                /*console.log("succ");
+                console.log(response.data); */
                 //update state vlaue 
                 dispatch({type:"getlistOfWantedPepoles",payload:response.data});
                 // retunr state of all wanted plates

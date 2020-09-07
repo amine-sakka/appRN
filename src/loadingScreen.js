@@ -8,11 +8,12 @@ import {Context as AuthContext} from './context/AuthContext';
 const loadingScreen = ()=>{
 
     //loading provide 
-    const {localSigin}=useContext(AuthContext);
+    const {localSigin,getMe}=useContext(AuthContext);
     //loading provider
     
     useEffect(()=>{
             localSigin();
+            getMe();
     },[]);
     return(null);
 

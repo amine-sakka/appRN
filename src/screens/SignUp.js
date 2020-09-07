@@ -29,7 +29,7 @@ const SignUp = ({navigation}) =>{
                 <Spacer/>
                 <Inputs name="Password" icon="lock" pass={true} data={password}  onChange={(newPassword)=>{setPassword(newPassword)}}/>
                 <Spacer/>
-                <Submit title="SIGN UP" color="#0148a4"  onClik={()=>{console.log("cliked");signup({name,email,password})}}/>
+                <Submit title="SIGN UP" color="#0148a4"  onClik={()=>{console.log("cliked");signup({name,email,password});}}/>
                 <TouchableOpacity onPress={()=>{navigation.navigate('Signin')}}> 
                 <Spacer>
                     <Text style={styles.link}>Have account ! sign in</Text>
