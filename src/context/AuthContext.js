@@ -3,6 +3,8 @@ import backend from '../api/backend';
 import {AsyncStorage} from 'react-native';
 
 import {navigate} from '../navigationRef';
+import axios from 'axios';
+
 
 
 const authReducer =(state,action)=>{
@@ -24,7 +26,7 @@ const authReducer =(state,action)=>{
             //console.log(action.payload);
             return({...state,userMe:action.payload});
         case 'uploadProfilePic':
-            return(state);
+            return({...state,userMe:action.payload});
 
         default:
             return(state);
@@ -157,40 +159,37 @@ const uploadProfilePic = (dispatch)=>{
 
     return(
         async (image)=>{
-            try {
-                //get token from storage
-                const token = await AsyncStorage.getItem('token');
-                //get current User Id from storage
-                const currentUserId = await AsyncStorage.getItem('currentUserId');
-
-
-               // const cleanURL = image.replace("file://", "");
-                const form_data = new FormData();
-                form_data.append("file", image);
-                console.log("form data");
-                console.log(form_data);
-
+            
+                try {
+                    const token = await AsyncStorage.getItem('token');
+                    //get current User Id from storage
+                    const currentUserId = await AsyncStorage.getItem('currentUserId');
+                    //geting the image
+                    const data = new FormData();
                 
+                    data. append('file', {
+                        uri: image.uri,
+                        type: 'image/jpeg', // <-- this
+                        name: 'image.jpg',
+                    });
 
-               const response =await backend.put(`http://9cddaa11fe66.ngrok.io/api/v1/users/5d7a514b5d2c12c7449be042/photo`,form_data,{
-                    headers: {'Content-Type': 'application/json'},
-                    
-                });
+                    //sending the request to upload the image
+                    const response =await backend.put(`http://839ce8c3613c.ngrok.io/api/v1/users/${currentUserId}/photo`,data,{
+                        headers: {'Content-Type': 'application/json','Authorization':`Bearer ${token}`}
+                    });
+                    console.log("succ uploading the profile image ");
+                    console.log(response.data.data);
+                    dispatch({type:"uploadProfilePic",payload:response.data.data});
 
-              
-                console.log("sakka look at reesponse image upload");
-                //onsole.log(response.data); 
-                
-                //update state authenticate 
-                dispatch({type:"uploadProfilePic",payload:response});            
-            } catch (error) {
+                } catch (error) {
+                    console.log(error);
 
-            //fail return error msg 
-            console.log("error");
-            console.log(error.response);
+                }
+
+           
             
             }
-        }
+        
     );
 }
 

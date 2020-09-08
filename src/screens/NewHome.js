@@ -72,7 +72,7 @@ const NewHome =()=>{
                 
                 return(
                   <Elmente key={elment}>
-                    <ElmentImage  source={{uri:`http://9cddaa11fe66.ngrok.io/${elment.item.photo}`}}/>
+                    <ElmentImage  source={{uri:`http://839ce8c3613c.ngrok.io/${elment.item.photo}`}}/>
                     <ElmentInfo>
                        <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>{elment.item.name} </Text>
                        <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold'}}>{elment.item.state} </Text>

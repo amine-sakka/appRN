@@ -18,7 +18,7 @@ import * as Permissions from 'expo-permissions';
 
 
 
-const editAccountScreen = () => {
+const editAccountScreen = ({navigation}) => {
   const {state,getMe,logout,uploadProfilePic}=useContext(AuthContext);
   const currentUser =state.userMe;
   let [image,setImage] = useState(null);
@@ -42,7 +42,7 @@ const editAccountScreen = () => {
       });
       
       if (!result.cancelled) {
-        setImage(image=result.uri);
+        setImage(image=result);
         
       }
 
@@ -72,7 +72,7 @@ const editAccountScreen = () => {
             
             <ImageBackground
                 source={{
-                  uri: `http://9cddaa11fe66.ngrok.io/${currentUser.photo}`,
+                  uri: `http://839ce8c3613c.ngrok.io/${currentUser.photo}`,
                 }}
                 style={{height: 100, width: 100}}
                 imageStyle={{borderRadius: 15}}>
@@ -133,7 +133,7 @@ const editAccountScreen = () => {
       </View>
 
     </View>
-    <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+    <TouchableOpacity style={styles.commandButton} onPress={() => {getMe();navigation.navigate('Account')}}>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
 
