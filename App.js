@@ -5,8 +5,11 @@ import {createBottomTabNavigator} from 'react-navigation-tabs'
 
 
 import NewHome from './src/screens/NewHome';
+import Home from './src/screens/Home';
 import newAcountScreen from './src/screens/newAcountScreen';
 import editAccountScreen from './src/screens/editAccountScreen';
+import personDeatils from './src/screens/personDeatils';
+import veichleDetail from './src/screens/veichleDetail';
 
 
 import Login from './src/screens/Login';
@@ -19,6 +22,8 @@ import {setNavigator} from './src/navigationRef'
 
 import loadingScreen from './src/loadingScreen';
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const switchNavigator=createSwitchNavigator ({
 
   loading:loadingScreen,
@@ -29,12 +34,35 @@ const switchNavigator=createSwitchNavigator ({
     
   }),
   mainFlow:createBottomTabNavigator({
-     home:NewHome,
+    
+     home:{
+       screen:createStackNavigator({
+        Home:Home,
+        PersonDeatils:personDeatils,
+        veichleDetail:veichleDetail
+       },),
+       navigationOptions:{
+        tabBarLabel:'Home',
+        tabBarIcon:() => {return <Icon size={ 20 } name={ 'home' } color={ 'black' }/>}
+     },
+     },
      //Account:newAcountScreen,
-     AccountStuff:createStackNavigator({
-       Account:newAcountScreen,
-       EditAccount:editAccountScreen,
-     }),
+     AccountStuff:{
+       screen:createStackNavigator({
+        Account:{
+          screen:newAcountScreen,
+          
+        },
+        EditAccount:{
+          screen:editAccountScreen,
+          
+        },
+      }),
+      navigationOptions:{
+        tabBarLabel:"Account",
+        tabBarIcon:() => {return <Icon size={ 20 } name={ 'face-profile' } color={ 'black' }/>}
+      }
+     },
   })
 
 });

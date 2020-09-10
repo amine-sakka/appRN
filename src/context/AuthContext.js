@@ -27,7 +27,8 @@ const authReducer =(state,action)=>{
             return({...state,userMe:action.payload});
         case 'uploadProfilePic':
             return({...state,userMe:action.payload});
-
+        case 'updateUser':
+            return({...state,userMe:action.payload});
         default:
             return(state);
     };
@@ -174,7 +175,7 @@ const uploadProfilePic = (dispatch)=>{
                     });
 
                     //sending the request to upload the image
-                    const response =await backend.put(`http://839ce8c3613c.ngrok.io/api/v1/users/${currentUserId}/photo`,data,{
+                    const response =await backend.put(`/api/v1/users/${currentUserId}/photo`,data,{
                         headers: {'Content-Type': 'application/json','Authorization':`Bearer ${token}`}
                     });
                     console.log("succ uploading the profile image ");
@@ -192,9 +193,39 @@ const uploadProfilePic = (dispatch)=>{
         
     );
 }
+const updateUser = (dispatch)=>{
 
+    return(
+        async ({name,email,phoneNumber})=>{
+            try {
+                console.log('phone /')
+                console.log();
+                //get token from storage
+                const token = await AsyncStorage.getItem('token');
+                //get current User Id from storage
+                const currentUserId = await AsyncStorage.getItem('currentUserId');
+                // api/update requesst 
+                const response =await backend.put(`/api/v1/auth/updatedetails`,{"name":name,"email":email,"phoneNumber":phoneNumber},{
+                    headers: {'Content-Type': 'application/json','Authorization':`Bearer ${token}`}
+                });
+                console.log("sakka look at user");
+                console.log(response.data.data._id); 
+                
+               
+                //update state authenticate 
+                dispatch({type:"updateUser",payload:response.data.data});
+               
+            
+            } catch (error) {
+
+            //fail return error msg 
+            console.log(error.response);
+            }
+        }
+    );
+}
 export const {Context,Provider} = createDataContext(
     authReducer,
-    {signin,signup,logout,localSigin,getMe,uploadProfilePic},
+    {signin,signup,logout,localSigin,getMe,uploadProfilePic,updateUser},
     {token:null,errorMessage:'',userMe:{}}
 );

@@ -19,10 +19,17 @@ import * as Permissions from 'expo-permissions';
 
 
 const editAccountScreen = ({navigation}) => {
-  const {state,getMe,logout,uploadProfilePic}=useContext(AuthContext);
+  const {state,getMe,logout,uploadProfilePic,updateUser}=useContext(AuthContext);
   const currentUser =state.userMe;
   let [image,setImage] = useState(null);
 
+  const [name,setName] = useState(state.userMe.name);
+  const [email,setEmail] = useState(state.userMe.email);
+  const [phoneNumber,setPhoneNumber] = useState(state.userMe.phoneNumber);
+  
+  const [password,setPassword] = useState("");
+  console.log();
+ 
   getPermissionAsync = async () => {
     if (Platform.OS !== 'web') {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -72,7 +79,7 @@ const editAccountScreen = ({navigation}) => {
             
             <ImageBackground
                 source={{
-                  uri: `http://839ce8c3613c.ngrok.io/${currentUser.photo}`,
+                  uri: `http://72770f1cda17.ngrok.io/${currentUser.photo}`,
                 }}
                 style={{height: 100, width: 100}}
                 imageStyle={{borderRadius: 15}}>
@@ -111,6 +118,8 @@ const editAccountScreen = ({navigation}) => {
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     style={styles.textInput}
+                    value={name}
+                    onChangeText={(newData)=>{setName(newData)}}
         />
       </View>
       <View style={styles.action}>
@@ -120,6 +129,8 @@ const editAccountScreen = ({navigation}) => {
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     style={styles.textInput}
+                    value={email}
+                    onChangeText={(newData)=>{setEmail(newData)}}
         />
       </View>
       <View style={styles.action}>
@@ -129,11 +140,13 @@ const editAccountScreen = ({navigation}) => {
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     style={styles.textInput}
+                    value={phoneNumber}
+                    onChangeText={(newData)=>{setPhoneNumber(newData)}}
         />
       </View>
 
     </View>
-    <TouchableOpacity style={styles.commandButton} onPress={() => {getMe();navigation.navigate('Account')}}>
+    <TouchableOpacity style={styles.commandButton} onPress={() => {updateUser({name,email,phoneNumber});getMe();navigation.navigate('Account')}}>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
 
@@ -230,4 +243,11 @@ const styles = StyleSheet.create({
     color: '#05375a',
   },
 });
+
+editAccountScreen.navigationOptions =()=>{
+  return({
+    title:"Edit Account",
+  });
+};
+
 export default editAccountScreen;

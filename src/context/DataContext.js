@@ -8,7 +8,8 @@ const dataReducer =(state,action)=>{
     switch (action.type) {
         case 'getlistOfWantedPepoles':
             return({...state,listOfWanted:action.payload})
-    
+        case 'getPersonVechiles':
+            return({...state,personVeichles:action.payload})
         default:
             return(state);
     }
@@ -125,12 +126,34 @@ const getlistOfWantedPepoles = (dispatch)=>{
     );
 }
 
+const getPersonVechiles = (dispatch)=>{
+    return (
+        async (personId) =>{
+            try {
+                //get token from storage
+                const token = await AsyncStorage.getItem('token');
+                //make request 
+                const response =await backend.get(`/api/v1/persons/${personId}/vehicles`,{
+                    headers: {'Content-Type': 'application/jsonvalue','Authorization':`Bearer ${token}`}
+                });
+                /*console.log("succ");
+                console.log(response.data); */
+                //update state vlaue 
+                dispatch({type:"getPersonVechiles",payload:response.data});
+                // retunr state of all wanted plates
+            } catch (error) {
+                //handiling error
+            }
+        }
+    );
+}
+
 
 
 
 
 export const {Context,Provider} = createDataContext(
     dataReducer,
-    {getlistOfWantedPepoles},
-    {search:"",listOfWanted:[{_id:0}]}
+    {getlistOfWantedPepoles,getPersonVechiles},
+    {search:"",listOfWanted:[{_id:0}],personVeichles:[]}
 );
