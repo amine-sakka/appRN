@@ -31,29 +31,28 @@ const { width, height } = Dimensions.get("screen");
 
 
 
-const veichleDetail = ({navigation}) => {
+const serchedVichlesDetailes = ({navigation}) => {
 
-  const {state,}=useContext(DataContext);
-  const itemData = navigation.getParam('itemData').item; 
+  const itemData = navigation.getParam('itemData'); 
   console.log('item');console.log(itemData)
      // running the function
  
 
   return (
     <Container>
-    <StatusBar barStyle='light-content' />
-    <BackgrounImage source ={{uri:`http://70c801dc1881.ngrok.io/${itemData.photo}`}} >
-      <SafeAreaView>
-        
-        <MainBody>
-          <Text style={{color:"#FFF",marginLeft:10,fontWeight: 'bold',}}>{itemData.plateNumber} </Text>
-          <TheDivider />
-        </MainBody>
-        
+        <StatusBar barStyle='light-content' />
+        <BackgrounImage source ={{uri:`http://70c801dc1881.ngrok.io/${itemData.photo}`}} >
+          <SafeAreaView>
+            
+            <MainBody>
+              <Text style={{color:"#FFF",marginLeft:10,fontWeight: 'bold',}}>{itemData.plateNumber} </Text>
+              <TheDivider />
+            </MainBody>
+            
 
-      </SafeAreaView>
-    </BackgrounImage>
-    <ListContainer style={{flex:1}}>
+          </SafeAreaView>
+        </BackgrounImage>
+        <ListContainer style={{flex:1}}>
             <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>plateNumber : {itemData.plateNumber}  </Text>
             <TheDivider />
             <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>model: {itemData.model}  </Text>
@@ -62,11 +61,14 @@ const veichleDetail = ({navigation}) => {
             <TheDivider />
             <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>color : {itemData.color}  </Text>
             <TheDivider />
-    </ListContainer>
+            <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>owner : {itemData.person.name}  </Text>
+            <TheDivider />
+            <Text style={{color:"#000",marginLeft:10,fontWeight: 'bold',}}>state : {itemData.person.state}  </Text>
+            <TheDivider />
+          
+      </ListContainer>
    
-      
-   
-  </Container>
+    </Container>
   
     
   );
@@ -74,12 +76,13 @@ const veichleDetail = ({navigation}) => {
 
 
 
-veichleDetail.navigationOptions =()=>{
+serchedVichlesDetailes.navigationOptions =()=>{
   return({
     title:"vehicles details",
+   
   });
 };
-export default veichleDetail;
+export default serchedVichlesDetailes;
 
 const Container = styled.View `
   flex  :1;

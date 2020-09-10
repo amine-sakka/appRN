@@ -10,7 +10,8 @@ import newAcountScreen from './src/screens/newAcountScreen';
 import editAccountScreen from './src/screens/editAccountScreen';
 import personDeatils from './src/screens/personDeatils';
 import veichleDetail from './src/screens/veichleDetail';
-
+import searchForV from './src/screens/searchForV';
+import serchedVichlesDetailes from './src/screens/serchedVichlesDetailes';
 
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
@@ -23,7 +24,7 @@ import {setNavigator} from './src/navigationRef'
 import loadingScreen from './src/loadingScreen';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {AntDesign} from '@expo/vector-icons'
 const switchNavigator=createSwitchNavigator ({
 
   loading:loadingScreen,
@@ -46,7 +47,22 @@ const switchNavigator=createSwitchNavigator ({
         tabBarIcon:() => {return <Icon size={ 20 } name={ 'home' } color={ 'black' }/>}
      },
      },
-     //Account:newAcountScreen,
+     search:{
+       /*screen:searchForV,
+       navigationOptions:{
+        tabBarLabel:'Search',
+        tabBarIcon:() => {return (  <AntDesign name='search1' size={24} color="black" />)}*/
+        screen:createStackNavigator({
+          search:searchForV,
+          searchDetailes:serchedVichlesDetailes,
+        }),
+        navigationOptions:{
+          tabBarLabel:'Search',
+          tabBarIcon:() => {return (  <AntDesign name='search1' size={24} color="black" />)}
+      },},
+
+     
+     
      AccountStuff:{
        screen:createStackNavigator({
         Account:{

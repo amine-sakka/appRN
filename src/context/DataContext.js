@@ -10,6 +10,8 @@ const dataReducer =(state,action)=>{
             return({...state,listOfWanted:action.payload})
         case 'getPersonVechiles':
             return({...state,personVeichles:action.payload})
+        case 'searchForVeichles':
+            return({...state,searchResult:action.payload})
         default:
             return(state);
     }
@@ -149,11 +151,66 @@ const getPersonVechiles = (dispatch)=>{
 }
 
 
+const searchForVeichles = (dispatch)=>{
+    return (
+        async (plateNb) =>{
+            try {
+                //get token from storage
+                const token = await AsyncStorage.getItem('token');
+                //make request 
+                const response =await backend.get(`/api/v1/vehicles?plateNumber=169tn9685`,{
+                    headers: {'Content-Type': 'application/jsonvalue','Authorization':`Bearer ${token}`}
+                });
+                /*console.log("succ");
+                console.log(response.data); */
+                //update state vlaue 
+                dispatch({type:"searchForVeichles",payload:response.data});
+                // retunr state of all wanted plates
+            } catch (error) {
+                //handiling error
+            }
+        }
+    );
+};
+const searchForVeichlesWithImage = (dispatch)=>{
+    return (
+        async (image) =>{
+            try {
+                //get token from storage
+                const token = await AsyncStorage.getItem('token');
+                //geting the image
+                const data = new FormData();
+                
+                    data. append('file', {
+                        uri: image.uri,
+                        type: 'image/jpeg', // <-- this
+                        name: 'image.jpg',
+                    });
+
+
+                //make request 
+                const response =await backend.post(`/api/v1/vehicles/findByPhoto`,data,{
+                    headers: {'Content-Type': 'application/jsonvalue','Authorization':`Bearer ${token}`}
+                });
+                console.log("succ image search");
+                console.log(response.data); 
+                //update state vlaue 
+                dispatch({type:"searchForVeichles",payload:response.data});
+                // retunr state of all wanted plates
+            } catch (error) {
+                console.log('error image upload search')
+                //handiling error
+            }
+        }
+    );
+}
+
+
 
 
 
 export const {Context,Provider} = createDataContext(
     dataReducer,
-    {getlistOfWantedPepoles,getPersonVechiles},
-    {search:"",listOfWanted:[{_id:0}],personVeichles:[]}
+    {getlistOfWantedPepoles,getPersonVechiles,searchForVeichles,searchForVeichlesWithImage},
+    {search:"",listOfWanted:[{_id:0}],personVeichles:[],searchResult:[]}
 );

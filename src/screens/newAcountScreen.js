@@ -35,7 +35,7 @@ const newAcountScreen = ({navigation}) => {
             <View style={{flexDirection: 'row', marginTop: 15}}>
                 <Avatar.Image 
                     source ={{
-                        uri :`http://72770f1cda17.ngrok.io/${state.userMe.photo}`
+                        uri :`http://70c801dc1881.ngrok.io/${state.userMe.photo}`
                         
                     }}
                     size={150}

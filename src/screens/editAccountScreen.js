@@ -79,7 +79,7 @@ const editAccountScreen = ({navigation}) => {
             
             <ImageBackground
                 source={{
-                  uri: `http://72770f1cda17.ngrok.io/${currentUser.photo}`,
+                  uri: `http://70c801dc1881.ngrok.io/${currentUser.photo}`,
                 }}
                 style={{height: 100, width: 100}}
                 imageStyle={{borderRadius: 15}}>

@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
-import StarRating from './StarRating';
+
 
 const Card = ({itemData, onPress}) => {
+  console.log("itemData shit");console.log(itemData);
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity  onPress={()=> onPress()}>
       <View style={styles.card}>
         <View style={styles.cardImgWrapper}>
           <Image
@@ -16,9 +17,11 @@ const Card = ({itemData, onPress}) => {
           />
         </View>
         <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>{itemData.name}</Text>
+          <Text style={styles.cardTitle}>{itemData.plateNumber}</Text>
           
-          <Text numberOfLines={2} style={styles.cardDetails}>{itemData.state}</Text>
+          <Text numberOfLines={2} style={styles.cardDetails}>{itemData.model}</Text>
+          <Text numberOfLines={2} style={styles.cardDetails}>{itemData.type}</Text>
+          <Text numberOfLines={2} style={styles.cardDetails}>{itemData.color}</Text>
           
         </View>
       </View>
